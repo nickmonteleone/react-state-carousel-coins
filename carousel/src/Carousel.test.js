@@ -48,3 +48,31 @@ it("matches snapshot", function() {
   );
   expect(container).toMatchSnapshot();
 });
+
+it("", function() {
+  const { debug, container } = render(
+    <Carousel
+      photos={TEST_IMAGES}
+      title="images for testing"
+    />
+  );
+
+  // overview of what we want to accomplish:
+  const originalCardIdx = container.querySelector(".Card").getAttribute("currNum") - 1;
+  const newCardIdx = container.querySelector(".Card").getAttribute("currNum");
+  console.log('originalcardidx', originalCardIdx, "newCardidx", newCardIdx);
+
+  expect(newCardIdx).toContainHTML();
+    //toContainHTML
+
+  fireEvent.click(container.querySelector(".bi bi-arrow-left-circle"));
+
+  // const newCardIdx = container.querySelector(".Card").getAttribute
+
+  // find currCardIdx
+    // find currCardIdx after pressing button
+  // expect(currCardIdx)
+
+
+
+})
