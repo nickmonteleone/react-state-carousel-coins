@@ -10,17 +10,7 @@ it("works when you click on the left arrow", function () {
     />
   );
 
-  const maxIdx = TEST_IMAGES.length;
-
-  // expect the first image to show, but not the second
-  expect(
-    container.querySelector('img[alt="testing image 1"]')
-  ).toBeInTheDocument();
-  expect(
-    container.querySelector(`img[alt="testing image 2"]`)
-  ).not.toBeInTheDocument();
-
-  // move right in the carousel
+  // move right in the carousel to prep for moving left
   const rightArrow = container.querySelector(".bi-arrow-right-circle");
   fireEvent.click(rightArrow);
 
@@ -32,7 +22,7 @@ it("works when you click on the left arrow", function () {
     container.querySelector(`img[alt="testing image 2"]`)
   ).toBeInTheDocument();
 
-  // move right in the carousel
+  // move left in the carousel
   const leftArrow = container.querySelector(".bi-arrow-left-circle");
   fireEvent.click(leftArrow);
 
@@ -43,8 +33,6 @@ it("works when you click on the left arrow", function () {
   expect(
     container.querySelector(`img[alt="testing image 2"]`)
   ).not.toBeInTheDocument();
-
-
 });
 
 it("works when you click on the right arrow", function () {
@@ -94,34 +82,47 @@ it("matches snapshot", function () {
   expect(container).toMatchSnapshot();
 });
 
-// it("", function() {
-//   const { debug, container } = render(
-//     <Carousel
-//       photos={TEST_IMAGES}
-//       title="images for testing"
-//     />
-//   );
+it("left arrow does not show when on first image in carousel", function () {
 
-//   const starterCard = container.querySelector(".Card");
-//   const countImages = TEST_IMAGES.length;
-//   expect(starterCard).toContainHTML(`Image 1 of ${countImages}`);
+  // the default value here is the 1st image
+  const { container } = render(
+    <Carousel
+      photos={TEST_IMAGES}
+      title="images for testing"
+    />
+  );
 
-//   // overview of what we want to accomplish:
-//   const originalCardIdx = container.querySelector(".Card").getAttribute("currNum") - 1;
-//   const newCardIdx = container.querySelector(".Card").getAttribute("currNum");
-//   console.log('originalcardidx', originalCardIdx, "newCardidx", newCardIdx);
+  // expect the right arrow to show, but not the left arrow
+  expect(
+    container.querySelector(".bi-arrow-right-circle")
+  ).toBeInTheDocument();
+  expect(
+    container.querySelector(".bi-arrow-left-circle")
+  ).not.toBeInTheDocument();
+});
 
-//   expect(newCardIdx).toContainHTML();
-//     //toContainHTML
+it("right arrow does not show when on last image in carousel", function () {
 
-//   fireEvent.click(container.querySelector(".bi bi-arrow-left-circle"));
+  const { container } = render(
+    <Carousel
+      photos={TEST_IMAGES}
+      title="images for testing"
+    />
+  );
 
-//   // const newCardIdx = container.querySelector(".Card").getAttribute
+  // the first card number is 1; we want to reach the last card number
+  for (let i = 1; i < TEST_IMAGES.length; i++) {
 
-//   // find currCardIdx
-//     // find currCardIdx after pressing button
-//   // expect(currCardIdx)
+    // move right in the carousel
+    const rightArrow = container.querySelector(".bi-arrow-right-circle");
+    fireEvent.click(rightArrow);
+  }
 
-
-
-// })
+  // expect the left arrow to show, but not the right arrow
+  expect(
+    container.querySelector(".bi-arrow-left-circle")
+  ).toBeInTheDocument();
+  expect(
+    container.querySelector(".bi-arrow-right-circle")
+  ).not.toBeInTheDocument();
+});
