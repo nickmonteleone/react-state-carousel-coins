@@ -97,8 +97,8 @@ it("left arrow does not show when on first image in carousel", function () {
     container.querySelector(".bi-arrow-right-circle")
   ).toBeInTheDocument();
   expect(
-    container.querySelector(".bi-arrow-left-circle")
-  ).not.toBeInTheDocument();
+    container.querySelector(".bi-arrow-left-circle").getAttribute("style")
+  ).toEqual("visibility: hidden;");
 });
 
 it("right arrow does not show when on last image in carousel", function () {
@@ -123,6 +123,6 @@ it("right arrow does not show when on last image in carousel", function () {
     container.querySelector(".bi-arrow-left-circle")
   ).toBeInTheDocument();
   expect(
-    container.querySelector(".bi-arrow-right-circle")
-  ).not.toBeInTheDocument();
+    container.querySelector(".bi-arrow-right-circle").getAttribute("style")
+  ).toEqual("visibility: hidden;");
 });

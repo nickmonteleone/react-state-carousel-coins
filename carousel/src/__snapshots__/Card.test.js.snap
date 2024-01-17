@@ -8,12 +8,12 @@ exports[`matches snapshot 1`] = `
     <h4
       class="Card-title"
     >
-      test card
+      testing image 1
     </h4>
     <img
-      alt="test card"
+      alt="testing image 1"
       class="Card-image"
-      src="/test/test.png"
+      src="test1.com"
     />
     <small
       class="Card-small"
