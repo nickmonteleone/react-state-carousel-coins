@@ -31,3 +31,6 @@ it("matches snapshot", function () {
   );
   expect(container).toMatchSnapshot();
 });
+
+// add tests like "does the card have particular info in it"
+// make sure the type of card has the info we expect it to on the page
