@@ -2,7 +2,52 @@ import { render, fireEvent } from "@testing-library/react";
 import Carousel from "./Carousel";
 import TEST_IMAGES from "./_testCommon.js";
 
-it("works when you click on the right arrow", function() {
+it("works when you click on the left arrow", function () {
+  const { container } = render(
+    <Carousel
+      photos={TEST_IMAGES}
+      title="images for testing"
+    />
+  );
+
+  const maxIdx = TEST_IMAGES.length;
+
+  // expect the first image to show, but not the second
+  expect(
+    container.querySelector('img[alt="testing image 1"]')
+  ).toBeInTheDocument();
+  expect(
+    container.querySelector(`img[alt="testing image 2"]`)
+  ).not.toBeInTheDocument();
+
+  // move right in the carousel
+  const rightArrow = container.querySelector(".bi-arrow-right-circle");
+  fireEvent.click(rightArrow);
+
+  // expect the 2nd image to show, but not the first
+  expect(
+    container.querySelector('img[alt="testing image 1"]')
+  ).not.toBeInTheDocument();
+  expect(
+    container.querySelector(`img[alt="testing image 2"]`)
+  ).toBeInTheDocument();
+
+  // move right in the carousel
+  const leftArrow = container.querySelector(".bi-arrow-left-circle");
+  fireEvent.click(leftArrow);
+
+  // expect the first image to show, but not the second
+  expect(
+    container.querySelector('img[alt="testing image 1"]')
+  ).toBeInTheDocument();
+  expect(
+    container.querySelector(`img[alt="testing image 2"]`)
+  ).not.toBeInTheDocument();
+
+
+});
+
+it("works when you click on the right arrow", function () {
   const { container } = render(
     <Carousel
       photos={TEST_IMAGES}
@@ -30,7 +75,7 @@ it("works when you click on the right arrow", function() {
   ).toBeInTheDocument();
 });
 
-it("renders without crashing (smoke test)", function() {
+it("renders without crashing (smoke test)", function () {
   render(
     <Carousel
       photos={TEST_IMAGES}
@@ -39,7 +84,7 @@ it("renders without crashing (smoke test)", function() {
   );
 });
 
-it("matches snapshot", function() {
+it("matches snapshot", function () {
   const { container } = render(
     <Carousel
       photos={TEST_IMAGES}
@@ -49,30 +94,34 @@ it("matches snapshot", function() {
   expect(container).toMatchSnapshot();
 });
 
-it("", function() {
-  const { debug, container } = render(
-    <Carousel
-      photos={TEST_IMAGES}
-      title="images for testing"
-    />
-  );
+// it("", function() {
+//   const { debug, container } = render(
+//     <Carousel
+//       photos={TEST_IMAGES}
+//       title="images for testing"
+//     />
+//   );
 
-  // overview of what we want to accomplish:
-  const originalCardIdx = container.querySelector(".Card").getAttribute("currNum") - 1;
-  const newCardIdx = container.querySelector(".Card").getAttribute("currNum");
-  console.log('originalcardidx', originalCardIdx, "newCardidx", newCardIdx);
+//   const starterCard = container.querySelector(".Card");
+//   const countImages = TEST_IMAGES.length;
+//   expect(starterCard).toContainHTML(`Image 1 of ${countImages}`);
 
-  expect(newCardIdx).toContainHTML();
-    //toContainHTML
+//   // overview of what we want to accomplish:
+//   const originalCardIdx = container.querySelector(".Card").getAttribute("currNum") - 1;
+//   const newCardIdx = container.querySelector(".Card").getAttribute("currNum");
+//   console.log('originalcardidx', originalCardIdx, "newCardidx", newCardIdx);
 
-  fireEvent.click(container.querySelector(".bi bi-arrow-left-circle"));
+//   expect(newCardIdx).toContainHTML();
+//     //toContainHTML
 
-  // const newCardIdx = container.querySelector(".Card").getAttribute
+//   fireEvent.click(container.querySelector(".bi bi-arrow-left-circle"));
 
-  // find currCardIdx
-    // find currCardIdx after pressing button
-  // expect(currCardIdx)
+//   // const newCardIdx = container.querySelector(".Card").getAttribute
+
+//   // find currCardIdx
+//     // find currCardIdx after pressing button
+//   // expect(currCardIdx)
 
 
 
-})
+// })
